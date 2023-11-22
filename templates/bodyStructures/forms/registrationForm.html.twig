@@ -1,0 +1,41 @@
+{% form_theme registrationForm 'view/formTheme/formTheme.html.twig' %}
+<div class="form-container">
+<h1 class="text-center">Inscrire un utilisateur</h1>
+
+    {{ form_start(registrationForm) }}
+
+    <div class="form-group">
+        {{ form_row(registrationForm.email)}}
+    </div>
+    <div class="form-group">
+        {{ form_row(registrationForm.pseudo)}}
+    </div>
+    <div class="form-group">
+        {{ form_row(registrationForm.prenom)}}
+    </div>
+    <div class="form-group">
+        {{ form_row(registrationForm.nom)}}
+    </div>
+    <div class="form-group">
+        {{ form_row(registrationForm.telephone)}}
+    </div>
+    <div class="form-group">
+        <b>{{ form_label(registrationForm.plainPassword.first)}}</b>
+        {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control', 'placeholder' : 'Entrez un mot de passe...'}}) }}
+    </div>
+    <div class="form-group">
+        <b>{{ form_label(registrationForm.plainPassword.second)}}</b>
+        {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control', 'placeholder' : 'Répétez le mot de passe...'}}) }}
+    </div>
+    <div class="form-group">
+        {{ form_row(registrationForm.campus)}}
+    </div>
+    <div class="form-group text-center ">
+        <div class="col-sm-offset-3">
+            <button type="submit" class="btn btn-primary mt-2 mb-2 ">Enregistrer</button>
+        </div>
+    </div>
+    {{ form_end(registrationForm) }}
+
+</div>
+

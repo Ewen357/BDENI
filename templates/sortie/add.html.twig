@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} Créer Sortie
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Créer une Sortie</h1>
+
+    {% include('bodyStructures/forms/sortieForm.html.twig') %}
+
+    <script>
+
+        document.getElementById('appbundle_sortie_ville').addEventListener('change', window.onload = function () {
+
+            let id = document.getElementById('appbundle_sortie_ville').value
+
+            data = fetch('/BDENI/public/api/lieu/ville/' + id,
+                {method: 'GET'})
+                .then(function (response) {
+                    return response.json()
+                })
+
+            data.then(function (data) {
+                let info = ""
+                for (let d of data) {
+                    let option = `<option value="${d.id}">${d.nom}</option>`
+                    info += option
+                }
+
+                lieuInfo(data[0])
+                let select = document.getElementById(`appbundle_sortie_lieu`)
+                select.innerHTML = info
+
+            })
+        })
+
+
+        document.getElementById('appbundle_sortie_lieu').addEventListener('change', window.onload = function () {
+
+            let id = document.getElementById('appbundle_sortie_lieu').value
+
+            let data = fetch('/BDENI/public/api/lieu/' + id,
+                {method: 'GET'})
+                .then(function (response) {
+                    return response.json()
+                })
+
+            data.then(function (data) {
+                lieuInfo(data)
+            })
+        })
+
+        function lieuInfo(data){
+            document.getElementById('sortie_lieu_rue').innerHTML = '<b>Rue : </b>' + data.rue
+            document.getElementById('sortie_lieu_cp').innerHTML = '<b>Code Postal : </b>' + data.ville.codePostal
+            document.getElementById('sortie_lieu_latitude').innerHTML = '<b>Latitude : </b>' + data.latitude
+            document.getElementById('sortie_lieu_longitude').innerHTML = '<b>Longitude : </b>' + data.longitude
+        }
+
+    </script>
+{% endblock %}

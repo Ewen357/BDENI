@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% form_theme villeForm 'view/formTheme/formTheme.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} Add Ville
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-center"> Gérer les villes</h1>
+{% include('bodyStructures/forms/filtreCampusVille.html.twig') %}
+    <div class="container">
+
+    <table id="tab-sorties" class="table table-striped" style="width:100%">
+        <tr>
+            {{ form_start(villeForm) }}
+
+            <td> {{ form_row(villeForm.nom) }}</td>
+            <td>{{ form_row(villeForm.codePostal) }}</td>
+            <td>
+                <button type="submit" class="btn btn-primary mt-4"> Enregistrer</button>
+            </td>
+            {{ form_end(villeForm) }}
+        </tr>
+        <thead>
+        <tr>
+            <th>Ville</th>
+            <th>Code Postal</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ville in tableauVille %}
+            <tr>
+                <td>{{ ville.nom }}</td>
+                <td>{{ ville.codePostal }}</td>
+                <td>
+                    <button class="btn btn-danger supprimer" data-ville="{{ ville.id }}">Supprimer</button>
+                    <a href="{{ path('admin_ville_update',{'id' : ville.id}) }} ">
+                        <button class="btn btn-primary">Modifier</button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div class="flex_ligne">
+
+        {% if currentPage == 1 %}
+            <button type="button" class="btn btn-secondary">Page Précédente</button>
+        {% elseif currentPage > 1 %}
+            <a href="{{ path('admin_ville_add', {'page': currentPage-1}) }}"><button type="button" class="btn btn-secondary">Page Précédente</button></a>
+        {% endif %}
+        <div><b>{{ currentPage }}/{{ maxPage }}</b></div>
+        {% if currentPage == maxPage %}
+            <button type="button" class="btn btn-secondary">Page Suivante</button>
+        {% elseif currentPage < maxPage %}
+            <a href="{{ path('admin_ville_add', {'page': currentPage+1}) }}"><button type="button" class="btn btn-secondary">Page Suivante</button></a>
+        {% endif %}
+    </div>
+
+    <script>
+        let elements = document.getElementsByClassName('supprimer')
+
+        for (let element of elements) {
+            element.addEventListener('click', function () {
+
+                let result = window.confirm('Êtes-vous sur de vouloir supprimer cette ville ?')
+
+                if (result) {
+
+                    let url = "{{ path("admin_ville_delete", {"id" : 0}) }}";
+                    let id = element.dataset.ville;
+                    url = url.replace('/0', '/' + id);
+                    window.location.href=url
+                }
+            })
+        }
+    </script>
+{% endblock %}
+
+

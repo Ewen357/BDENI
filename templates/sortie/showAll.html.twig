@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} List
+{% endblock %}
+
+{% block body %}
+
+    {% include('bodyStructures/forms/filtreForm.html.twig') %}
+    <div class="container ">
+    <table id="tab-sorties" class="table table-striped" style="width:100%">
+        <thead>
+
+        <tr>
+            <th>Nom de la sortie</th>
+            <th>Date de la sortie</th>
+            <th>Clotûre</th>
+            <th>Inscrit/place</th>
+            <th>Etat</th>
+            <th>Inscrit</th>
+            <th>Organisateur</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sort in sorties %}
+
+        <tr>
+            <td > {{ sort.nom }}</td>
+            <td> {{ sort.dateHeureDebut| date('d/m/Y H:i') }}</td>
+            <td> {{ sort.dateLimiteInscription | date ('d/m/Y') }}</td>
+            <td> {{ sort.participants.count() }}/{{ sort.nbInsriptionsMax }}</td>
+            <td> {{ sort.etat.libelle }}</td>
+            <td>
+                {% if(sort.participants.contains(app.user)) %}
+                    <svg width="30" height="30" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m10.933 13.52-2.226-2.227-1.414 1.414 3.774 3.774 5.702-6.84-1.538-1.282-4.298 5.16Z"></path>
+                        <path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2ZM5 19V5h14l.002 14H5Z"></path>
+                    </svg>
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{{ path('user_show', {'id': sort.organisateur.id}) }}">{{ sort.organisateur.pseudo }}</a>
+            </td>
+            <td>
+                        {% if(is_granted('sortie_display',sort)) %}
+                            <a href="{{ path('sortie_show_one', {'id': sort.id}) }}"><button type="button" class="btn btn-secondary ">Afficher</button></a>
+                        {% endif %}
+
+                        {% if(is_granted('sortie_update',sort)) %}
+                            <a href="{{ path('sortie_update', {'id': sort.id}) }}"><button type="button" class="btn btn-primary mt-1 ">Modifier</button></a>
+                            <a href="{{ path('sortie_publish', {'id': sort.id}) }}"><button type="button" class="btn btn-success mt-1 ">Publier</button></a>
+                        {% endif %}
+
+                        {% if(is_granted('sortie_cancel',sort)) %}
+                            <a href="{{ path('sortie_cancel', {'id': sort.id}) }}"><button type="button" class="btn btn-warning mt-1 ">Annuler</button></a>
+                        {% endif %}
+
+                        {% if(is_granted('sortie_subscribe',sort)) %}
+                            <a href="{{ path('sortie_subscribe', {'id': sort.id}) }}"><button type="button" class="btn btn-primary mt-1 ">S'inscrire</button></a>
+                        {% endif %}
+
+                        {% if(is_granted('sortie_unsubscribe',sort)) %}
+                            <a href="{{ path('sortie_unsubscride', {'id': sort.id}) }}"><button type="button" class="btn btn-danger mt-1 ">Désistement</button></a>
+                        {% endif %}
+            </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <div class="flex_ligne">
+            {% if currentPage == 1 %}
+                <button type="button" class="btn btn-secondary">Page Précédente</button>
+            {% elseif currentPage > 1 %}
+                <a href="{{ path('sortie_show_all', {'page': currentPage-1}) }}"><button type="button" class="btn btn-secondary">Page Précédente</button></a>
+            {% endif %}
+            <div><b>{{ currentPage }}/{{ maxPage }}</b></div>
+            {% if currentPage == maxPage %}
+                <button type="button" class="btn btn-secondary">Page Suivante</button>
+            {% elseif currentPage < maxPage %}
+                <a href="{{ path('sortie_show_all', {'page': currentPage+1}) }}"><button type="button" class="btn btn-secondary">Page Suivante</button></a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

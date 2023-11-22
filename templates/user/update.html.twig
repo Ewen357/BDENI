@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Modifier mon profil
+{% endblock %}
+
+{% block body %}
+    {% include('bodyStructures/forms/updateUserForm.html.twig') %}
+{% endblock %}
+
+
+
+

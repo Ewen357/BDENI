@@ -1,0 +1,123 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+h1{
+
+    font-family: 'Sono', sans-serif;
+}
+ul{
+    font-family: 'Sono', sans-serif;
+}
+li{
+    font-family: 'Sono', sans-serif;
+}
+table{
+    font-family: 'Sono', sans-serif;
+}
+.form-control{
+    font-family: 'Sono', sans-serif;
+}
+.flex_ligne{
+    font-family: 'Sono', sans-serif;
+}
+.headerIcon{
+    width: 100px;
+}
+.remember-me {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 40px;
+}
+.user-profile {
+    display: flex;
+    flex-direction: row;
+    padding-left: 40px;
+    margin-top: 40px;
+
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+}
+footer{
+    text-align: center;
+}
+.btn_centrer{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.block_page{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+#registration_form_roles_0{
+    width: 20rem;
+}
+.page_centrer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60vw;
+    height: 50vh;
+}
+.centrer_page_largeur{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.centre_titre{
+    text-align: center;
+}
+.form-container {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.red{
+    color: red;
+}
+.margin_left{
+    margin-left: 1rem;
+}
+.margin_left{
+    margin-left: 2rem;
+}
+.dropdown-item:hover{
+    color:navy;
+}
+.zoom1:hover {
+    transform: scale(1.5);
+}
+.zoom2:hover {
+    transform: scale(5);
+}
+
+.alert-danger, .alert-success, .alert-secondary, .alert-primary, .alert-warning {
+    opacity: 1; /* commencer avec une opacité complète */
+    animation: disparaitre 5s linear forwards; /* lancer l'animation "disparaitre" pendant 5 secondes */
+}
+
+/* définir l'animation "disparaitre" avec @keyframes */
+@keyframes disparaitre {
+    0% { opacity: 1; } /* commencer avec une opacité complète */
+    100% { opacity: 0; } /* finir avec une opacité nulle */
+}
+
+#map {
+    height: 400px;
+}
+

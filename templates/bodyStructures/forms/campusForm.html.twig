@@ -1,0 +1,9 @@
+{% form_theme campusform 'view/formTheme/formTheme.html.twig' %}
+    {{ form_start(campusform) }}
+<div class="d-flex justify-content-center">
+    {{ form_widget(campusform) }}
+    <div class="d-flex">
+        <button type="submit" class="btn btn-primary mr-15 margin_left">Enregistrer</button>
+    </div>
+</div>
+{{ form_end(campusform) }}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} Update Campus
+{% endblock %}
+
+{% block body %}
+    {% include ('bodyStructures/forms/campusForm.html.twig') %}
+
+{% endblock %}
+

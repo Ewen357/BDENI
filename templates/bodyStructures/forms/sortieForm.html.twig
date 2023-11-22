@@ -1,0 +1,39 @@
+{% form_theme sortieForm 'view/formTheme/formTheme.html.twig' %}
+<div class="form-container">
+{{ form_start(sortieForm) }}
+    {{ form_widget(sortieForm) }}
+<br>
+<a href="{{ path("lieu_add") }}">
+    <button class="btn btn-primary" type="button" id="addLieu">Créer un lieu</button>
+</a>
+<div id="infos_lieu">
+    <br>
+    <p id="sortie_lieu_rue"><b>Rue : </b></p>
+    <p id="sortie_lieu_cp"><b>Code postal :</b></p>
+    <p id="sortie_lieu_latitude"><b>Latitude :</b></p>
+    <p id="sortie_lieu_longitude"><b>Longitude :</b></p>
+</div>
+<button type="submit" name="submit" value="1" class="btn btn-primary">Enregistrer</button>
+<button type="submit" name="submit" value="2" class="btn btn-success">Publier la sortie</button>
+{% if(sortie.id) %}
+    <button type="button" id="supprimer" class="btn btn-danger" data-sortie="{{ sortie.id }}">Supprimer la sortie</button>
+{% endif %}
+<a href="{{ path("main_home") }}"><button type="button" class="btn btn-secondary">Annuler</button></a>
+
+{{ form_end(sortieForm) }}
+</div>
+<script>
+    let element = document.getElementById('supprimer')
+
+        element.addEventListener('click', function () {
+
+            let result = window.confirm('Êtes-vous sur de vouloir supprimer cette sortie ?')
+
+            if (result) {
+                let url = "{{ path("sortie_delete", {"id" : 0}) }}";
+                let id = element.dataset.sortie;
+                url = url.replace('/0', '/' + id);
+                window.location.href = url
+            }
+        })
+</script>

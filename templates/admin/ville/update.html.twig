@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} Update Ville
+{% endblock %}
+
+{% block body %}
+    {% include ('bodyStructures/forms/villeForm.html.twig') %}
+
+{% endblock %}
+
